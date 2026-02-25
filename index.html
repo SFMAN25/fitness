@@ -3,155 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda Fitness - الوحش</title>
+    <title>Boda Fitness Elite</title>
     <style>
-        :root { --red: #ff0000; --black: #0d0d0d; --card: #1a1a1a; --text: #ffffff; }
-        body { background: var(--black); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 15px; direction: rtl; }
+        :root { --red: #ff0000; --black: #000000; --card: #121212; --text: #ffffff; }
+        body { background: var(--black); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; direction: rtl; }
         
-        /* Header */
-        .header { text-align: center; padding: 20px; border-bottom: 3px solid var(--red); margin-bottom: 20px; }
-        .boda-logo { font-size: 3.5em; font-weight: 900; color: var(--red); text-shadow: 0 0 15px rgba(255,0,0,0.5); }
+        .header { text-align: center; padding: 20px; border-bottom: 3px solid var(--red); }
+        .boda-logo { font-size: 3.5em; font-weight: 900; color: var(--red); text-shadow: 0 0 15px rgba(255,0,0,0.5); margin: 0; }
         
-        /* Progress */
-        .main-progress { background: var(--card); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
-        .bar-bg { background: #333; height: 20px; border-radius: 10px; overflow: hidden; margin-top: 10px; }
-        .bar-fill { background: var(--red); width: 10%; height: 100%; transition: 0.5s; }
-
-        /* Exercise Card */
-        .ex-card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 30px; border: 1px solid #333; }
-        .ex-title { color: var(--red); font-size: 1.8em; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .ex-card { background: var(--card); border-radius: 20px; padding: 20px; margin: 20px 0; border: 1px solid #333; overflow: hidden; }
+        .ex-title { color: var(--red); font-size: 1.8em; margin-bottom: 10px; }
         
-        .ex-info { display: flex; justify-content: space-around; background: #252525; padding: 15px; border-radius: 10px; margin: 15px 0; font-size: 1.2em; font-weight: bold; }
-        .ex-info span { color: #00ff00; } /* الأعداد بلون أخضر عشان تبان */
-
-        .ex-image { width: 100%; border-radius: 10px; margin: 10px 0; border: 2px solid #333; }
+        /* الصور - روابط GIFs شغالة */
+        .ex-img { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 1px solid #444; height: 200px; object-fit: cover; }
         
-        .description { background: #222; padding: 10px; border-radius: 8px; font-size: 0.95em; color: #ccc; margin-bottom: 15px; }
+        .stats-box { display: flex; justify-content: space-around; background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--red); }
+        .stats-box b { font-size: 1.3em; color: #00ff00; }
 
-        /* Buttons */
-        .btn { background: var(--red); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: #cc0000; transform: translateY(-2px); }
+        /* منطقة التفاعل جوه الكرت */
+        .interaction-area { background: #1a1a1a; padding: 15px; border-radius: 12px; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
+        .status-text { font-size: 1.2em; margin-bottom: 10px; color: #ffcc00; }
+
+        .btn { background: var(--red); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 5px; }
+        .btn:disabled { background: #444; cursor: not-allowed; }
+        .btn-help { background: #333; font-size: 0.9em; margin-top: 10px; }
+
+        .help-content { background: #222; padding: 15px; border-radius: 10px; margin-top: 10px; display: none; color: #ccc; border-right: 4px solid #ffcc00; }
         
-        .btn-help { background: #444; margin-top: 10px; font-size: 1em; }
-
-        /* Help Section (FAQ) */
-        .help-box { background: #2d2d2d; padding: 15px; border-radius: 10px; margin-top: 10px; display: none; border-right: 4px solid #ffcc00; }
-        .help-box h4 { margin-top: 0; color: #ffcc00; }
-
-        /* Timer Overlay */
-        #timer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 999; }
-        .timer-val { font-size: 8em; color: var(--red); font-weight: bold; }
+        .congrats { color: #00ff00; font-weight: bold; font-size: 1.4em; display: none; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="boda-logo">BOda</div>
-        <p>تحدي الـ 23 يوم - القوة والنتائج 💪</p>
+        <h1 class="boda-logo">BOda</h1>
+        <p>تمرين الأبطال - بدون تعب نتايج جبارة 🚀</p>
     </div>
 
-    <div class="main-progress">
-        <span>التقدم في التحدي (اليوم 1 من 23)</span>
-        <div class="bar-bg"><div class="bar-fill"></div></div>
-    </div>
+    <div class="ex-card" id="ex1">
+        <div class="ex-title">1. تمرين ضهر (W) 🧗‍♂️</div>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eXp2Z3F4bW93Y3I5ZzR0YXJ1eXp2Z3F4bW93Y3I5ZzR0JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" class="ex-img" alt="Back Exercise">
+        <p><b>النصيحة:</b> شد كتافك لورا كأنك بتعصر برتقالة بين لوحين كتفك.</p>
+        
+        <div class="stats-box">
+            <div>المجموعات: <b id="sets-count-1">3</b></div>
+            <div>التكرار: <b>15</b></div>
+        </div>
 
-    <div class="ex-card">
-        <div class="ex-title">تمرين ضهر (W) 🧗‍♂️</div>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpMzhpbmZiaXFpOHJic2ZqZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" alt="تمرين الظهر" class="ex-image">
-        <div class="description"><b>طريقة الأداء:</b> اسحب كوعك لورا ولتحت كأنك بترسم حرف W بظهرك. اضغط على عضلات الظهر كويس.</div>
-        <div class="ex-info">
-            <div>المجموعات: <span>3</span></div>
-            <div>التكرار: <span>15</span></div>
+        <div class="interaction-area">
+            <div id="status-1" class="status-text">جاهز يا وحش؟</div>
+            <div id="congrats-1" class="congrats">مبروك! خلصت تمرين الضهر 👏</div>
+            <button id="btn-1" class="btn" onclick="nextSet(1, 3)">ابدأ أول مجموعة ▶</button>
         </div>
-        <button class="btn" onclick="startSets('تمرين الضهر', 3)">ابدأ المجموعات ▶</button>
-        <button class="btn btn-help" onclick="toggleHelp('help1')">لو حسيت بوجع؟ (أسئلة وأجوبة)</button>
-        <div id="help1" class="help-box">
-            <h4>س: بحس بوجع في رقبتي؟</h4>
-            <p>ج: حاول ترخي رقبتك وتبص قدامك، الحركة لازم تكون من لوح الكتف مش من الرقبة.</p>
-        </div>
-    </div>
 
-    <div class="ex-card">
-        <div class="ex-title">تمرين البلانك 🧘‍♂️</div>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHR1Nmt2ZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" alt="تمرين البلانك" class="ex-image">
-        <div class="description"><b>طريقة الأداء:</b> الثبات على الكوع وأطراف الأصابع مع شد البطن. جسمك لازم يكون خط مستقيم.</div>
-        <div class="ex-info">
-            <div>المجموعات: <span>3</span></div>
-            <div>الزمن: <span>30 ثانية</span></div>
-        </div>
-        <button class="btn" onclick="startTimer(30)">ابدأ عداد الثواني ⏱️</button>
-        <button class="btn btn-help" onclick="toggleHelp('help2')">لو مش قادر أثبت؟</button>
-        <div id="help2" class="help-box">
-            <h4>س: ظهري بيوجعني وأنا ثابت؟</h4>
-            <p>ج: ارفع حوضك لفوق شوية وشد عضلات بطنك أكتر، الوجع معناه إنك محمل على فقرات الظهر.</p>
+        <button class="btn btn-help" onclick="toggleHelp('h1')">لو حسيت بوجع؟</button>
+        <div id="h1" class="help-content">
+            <b>س: وجع في الرقبة؟</b><br>ج: رخي رقبتك تماماً، الحركة لازم تكون من كتافك بس.
         </div>
     </div>
 
-    <div class="ex-card">
-        <div class="ex-title">تمرين السكوات 🦵</div>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHR1Nmt2ZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" alt="تمرين السكوات" class="ex-image">
-        <div class="description"><b>طريقة الأداء:</b> انزل بظهرك مفرود كأنك هتقعد على كرسي، خلي وزنك دايماً على كعب رجلك.</div>
-        <div class="ex-info">
-            <div>المجموعات: <span>3</span></div>
-            <div>التكرار: <span>15</span></div>
+    <div class="ex-card" id="ex2">
+        <div class="ex-title">2. تمرين البلانك 🧘‍♂️</div>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmtpZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" class="ex-img" alt="Plank">
+        <p><b>النصيحة:</b> خلي جسمك مسطرة وشد عضلات بطنك لأقصى درجة.</p>
+        
+        <div class="stats-box">
+            <div>المجموعات: <b>3</b></div>
+            <div>المدة: <b>30 ثانية</b></div>
         </div>
-        <button class="btn" onclick="startSets('تمرين السكوات', 3)">ابدأ المجموعات ▶</button>
-    </div>
 
-    <div id="timer-overlay">
-        <h2 id="timer-name">البلانك</h2>
-        <div class="timer-val" id="time-display">30</div>
-        <button class="btn" style="width: 200px" onclick="stopTimer()">إلغاء</button>
+        <div class="interaction-area">
+            <div id="timer-status" class="status-text">30</div>
+            <div id="congrats-2" class="congrats">بلانك حديد يا بطل! 🔥</div>
+            <button id="btn-timer" class="btn" onclick="startTimer()">ابدأ العداد ⏱️</button>
+        </div>
+
+        <button class="btn btn-help" onclick="toggleHelp('h2')">مش قادر أثبت؟</button>
+        <div id="h2" class="help-content">
+            <b>س: وجع في أسفل الظهر؟</b><br>ج: ارفع وسطك لفوق شوية وشد بطنك، الوجع معناه إنك مرخي بطنك.
+        </div>
     </div>
 
     <script>
-        // إظهار وإخفاء الأسئلة
-        function toggleHelp(id) {
-            const el = document.getElementById(id);
-            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-        }
+        // نظام المجموعات التفاعلي جوه الكرت
+        let currentSet = 1;
+        function nextSet(exId, totalSets) {
+            let status = document.getElementById('status-' + exId);
+            let btn = document.getElementById('btn-' + exId);
+            let congrats = document.getElementById('congrats-' + exId);
+            let setsDisplay = document.getElementById('sets-count-' + exId);
 
-        // نظام المجموعات
-        function startSets(name, totalSets) {
-            let currentSet = 1;
-            function run() {
-                if (currentSet <= totalSets) {
-                    if (confirm(`أنت الآن في المجموعة رقم ${currentSet} من ${totalSets}\nخلصت الـ 15 تكرار؟`)) {
-                        currentSet++;
-                        if (currentSet > totalSets) {
-                            alert("عاش يا وحش! مبروك خلصت تمرين " + name);
-                        } else {
-                            run();
-                        }
-                    }
-                }
+            if (currentSet <= totalSets) {
+                status.innerText = "خلصت المجموعة رقم " + currentSet + "؟";
+                btn.innerText = "تم، المجموعة اللي بعدها ✅";
+                setsDisplay.innerText = (totalSets - currentSet);
+                currentSet++;
+            } else {
+                status.style.display = 'none';
+                btn.style.display = 'none';
+                congrats.style.display = 'block';
+                currentSet = 1; // reset for next ex
             }
-            run();
         }
 
-        // نظام العداد للبلانك
-        let timer;
-        function startTimer(sec) {
-            const overlay = document.getElementById('timer-overlay');
-            const display = document.getElementById('time-display');
-            overlay.style.display = 'flex';
-            let timeLeft = sec;
-            display.innerText = timeLeft;
+        // نظام العداد للبلانك جوه الكرت
+        function startTimer() {
+            let timeLeft = 30;
+            let display = document.getElementById('timer-status');
+            let btn = document.getElementById('btn-timer');
+            let congrats = document.getElementById('congrats-2');
 
-            timer = setInterval(() => {
+            btn.disabled = true;
+            btn.innerText = "ثبات يا وحش...";
+
+            let interval = setInterval(() => {
                 timeLeft--;
                 display.innerText = timeLeft;
+                display.style.fontSize = "3em";
+                display.style.color = "red";
+
                 if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    overlay.style.display = 'none';
-                    alert("مبروك! بلانك حديد يا بطل 🔥");
+                    clearInterval(interval);
+                    display.style.display = 'none';
+                    btn.style.display = 'none';
+                    congrats.style.display = 'block';
                 }
             }, 1000);
         }
 
-        function stopTimer() {
-            clearInterval(timer);
-            document.getElementById('timer-overlay').style.display = 'none';
+        function toggleHelp(id) {
+            let el = document.getElementById(id);
+            el.style.display = el.style.display === 'block' ? 'none' : 'block';
         }
     </script>
 </body>
