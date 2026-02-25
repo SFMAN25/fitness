@@ -11,25 +11,30 @@
         .header { text-align: center; padding: 20px; border-bottom: 3px solid var(--red); }
         .boda-logo { font-size: 3.5em; font-weight: 900; color: var(--red); text-shadow: 0 0 15px rgba(255,0,0,0.5); margin: 0; }
         
-        .ex-card { background: var(--card); border-radius: 20px; padding: 20px; margin: 20px 0; border: 1px solid #333; overflow: hidden; }
+        .ex-card { background: var(--card); border-radius: 20px; padding: 20px; margin: 20px 0; border: 1px solid #333; }
         .ex-title { color: var(--red); font-size: 1.8em; margin-bottom: 10px; }
         
-        /* الصور - روابط GIFs شغالة */
-        .ex-img { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 1px solid #444; height: 200px; object-fit: cover; }
+        /* مكان عرض الصور */
+        .ex-img-container { 
+            width: 100%; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+            border: 1px solid #444;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+        .ex-img-container img { width: 100%; display: block; height: auto; }
         
         .stats-box { display: flex; justify-content: space-around; background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--red); }
         .stats-box b { font-size: 1.3em; color: #00ff00; }
 
-        /* منطقة التفاعل جوه الكرت */
         .interaction-area { background: #1a1a1a; padding: 15px; border-radius: 12px; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
         .status-text { font-size: 1.2em; margin-bottom: 10px; color: #ffcc00; }
 
         .btn { background: var(--red); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 5px; }
-        .btn:disabled { background: #444; cursor: not-allowed; }
         .btn-help { background: #333; font-size: 0.9em; margin-top: 10px; }
 
         .help-content { background: #222; padding: 15px; border-radius: 10px; margin-top: 10px; display: none; color: #ccc; border-right: 4px solid #ffcc00; }
-        
         .congrats { color: #00ff00; font-weight: bold; font-size: 1.4em; display: none; }
     </style>
 </head>
@@ -37,98 +42,54 @@
 
     <div class="header">
         <h1 class="boda-logo">BOda</h1>
-        <p>تمرين الأبطال - بدون تعب نتايج جبارة 🚀</p>
+        <p>تحدي الـ 23 يوم - الوحش وصل 🚀</p>
     </div>
 
-    <div class="ex-card" id="ex1">
-        <div class="ex-title">1. تمرين ضهر (W) 🧗‍♂️</div>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eXp2Z3F4bW93Y3I5ZzR0YXJ1eXp2Z3F4bW93Y3I5ZzR0JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" class="ex-img" alt="Back Exercise">
-        <p><b>النصيحة:</b> شد كتافك لورا كأنك بتعصر برتقالة بين لوحين كتفك.</p>
+    <div class="ex-card">
+        <div class="ex-title">تمرين السكوات (Squat) 🦵</div>
+        
+        <div class="ex-img-container">
+            <img src="https://i.pinimg.com/originals/63/e1/c6/63e1c6a3047df6503f9b9060e1f9d414.gif" alt="Squat GIF">
+        </div>
+
+        <p><b>النصيحة:</b> انزل بضهر مفرود ووزنك دايماً على كعب رجلك، كأنك هتقعد على كرسي.</p>
         
         <div class="stats-box">
-            <div>المجموعات: <b id="sets-count-1">3</b></div>
+            <div>المجموعات: <b id="sets-squat">3</b></div>
             <div>التكرار: <b>15</b></div>
         </div>
 
         <div class="interaction-area">
-            <div id="status-1" class="status-text">جاهز يا وحش؟</div>
-            <div id="congrats-1" class="congrats">مبروك! خلصت تمرين الضهر 👏</div>
-            <button id="btn-1" class="btn" onclick="nextSet(1, 3)">ابدأ أول مجموعة ▶</button>
+            <div id="status-squat" class="status-text">جاهز تحرق عضلات رجلك؟</div>
+            <div id="congrats-squat" class="congrats">عاش يا بودا! رجلين حديد 👏</div>
+            <button id="btn-squat" class="btn" onclick="handleSets('squat', 3)">ابدأ أول مجموعة ▶</button>
         </div>
 
-        <button class="btn btn-help" onclick="toggleHelp('h1')">لو حسيت بوجع؟</button>
-        <div id="h1" class="help-content">
-            <b>س: وجع في الرقبة؟</b><br>ج: رخي رقبتك تماماً، الحركة لازم تكون من كتافك بس.
-        </div>
-    </div>
-
-    <div class="ex-card" id="ex2">
-        <div class="ex-title">2. تمرين البلانك 🧘‍♂️</div>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmtpZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqZzFic2ZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGmE1EGYCUMdW/giphy.gif" class="ex-img" alt="Plank">
-        <p><b>النصيحة:</b> خلي جسمك مسطرة وشد عضلات بطنك لأقصى درجة.</p>
-        
-        <div class="stats-box">
-            <div>المجموعات: <b>3</b></div>
-            <div>المدة: <b>30 ثانية</b></div>
-        </div>
-
-        <div class="interaction-area">
-            <div id="timer-status" class="status-text">30</div>
-            <div id="congrats-2" class="congrats">بلانك حديد يا بطل! 🔥</div>
-            <button id="btn-timer" class="btn" onclick="startTimer()">ابدأ العداد ⏱️</button>
-        </div>
-
-        <button class="btn btn-help" onclick="toggleHelp('h2')">مش قادر أثبت؟</button>
-        <div id="h2" class="help-content">
-            <b>س: وجع في أسفل الظهر؟</b><br>ج: ارفع وسطك لفوق شوية وشد بطنك، الوجع معناه إنك مرخي بطنك.
+        <button class="btn btn-help" onclick="toggleHelp('h-squat')">لو حسيت بوجع في الركبة؟</button>
+        <div id="h-squat" class="help-content">
+            <b>س: ركبتي بتوجعني؟</b><br>ج: اتأكد إن ركبتك مش بتعدي صوابع رجلك وأنت نازل، وخلي حملك كله على كعبك لورا.
         </div>
     </div>
 
     <script>
-        // نظام المجموعات التفاعلي جوه الكرت
         let currentSet = 1;
-        function nextSet(exId, totalSets) {
-            let status = document.getElementById('status-' + exId);
-            let btn = document.getElementById('btn-' + exId);
-            let congrats = document.getElementById('congrats-' + exId);
-            let setsDisplay = document.getElementById('sets-count-' + exId);
+        function handleSets(type, totalSets) {
+            let status = document.getElementById('status-' + type);
+            let btn = document.getElementById('btn-' + type);
+            let congrats = document.getElementById('congrats-' + type);
+            let displaySets = document.getElementById('sets-' + type);
 
             if (currentSet <= totalSets) {
                 status.innerText = "خلصت المجموعة رقم " + currentSet + "؟";
                 btn.innerText = "تم، المجموعة اللي بعدها ✅";
-                setsDisplay.innerText = (totalSets - currentSet);
+                displaySets.innerText = (totalSets - currentSet);
                 currentSet++;
             } else {
                 status.style.display = 'none';
                 btn.style.display = 'none';
                 congrats.style.display = 'block';
-                currentSet = 1; // reset for next ex
+                currentSet = 1; 
             }
-        }
-
-        // نظام العداد للبلانك جوه الكرت
-        function startTimer() {
-            let timeLeft = 30;
-            let display = document.getElementById('timer-status');
-            let btn = document.getElementById('btn-timer');
-            let congrats = document.getElementById('congrats-2');
-
-            btn.disabled = true;
-            btn.innerText = "ثبات يا وحش...";
-
-            let interval = setInterval(() => {
-                timeLeft--;
-                display.innerText = timeLeft;
-                display.style.fontSize = "3em";
-                display.style.color = "red";
-
-                if (timeLeft <= 0) {
-                    clearInterval(interval);
-                    display.style.display = 'none';
-                    btn.style.display = 'none';
-                    congrats.style.display = 'block';
-                }
-            }, 1000);
         }
 
         function toggleHelp(id) {
