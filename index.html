@@ -3,238 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda Fitness - الوحش</title>
+    <title>Boda Fitness Elite</title>
     <style>
-        /* ستايل ناري: أحمر وأسود */
-        :root {
-            --primary: #ff0000;
-            --dark: #000000;
-            --card-bg: #1a1a1a;
-            --text: #ffffff;
-        }
+        :root { --red: #ff0000; --black: #000000; --grey: #1a1a1a; --text: #ffffff; }
+        body { background: var(--black); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; direction: rtl; }
+        .container { max-width: 500px; margin: auto; padding: 20px; }
+        .header { text-align: center; border-bottom: 2px solid var(--red); padding-bottom: 10px; }
+        .boda-logo { font-size: 3.5em; font-weight: 900; color: var(--red); letter-spacing: 2px; }
+        
+        /* شريط تقدم الـ 23 يوم */
+        .days-progress { background: var(--grey); padding: 15px; border-radius: 15px; margin: 20px 0; }
+        .bar-bg { background: #333; height: 15px; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+        .bar-fill { background: var(--red); height: 100%; width: 5%; transition: 0.5s; }
 
-        body {
-            background-color: var(--dark);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            padding: 20px;
-            direction: rtl;
-        }
+        .exercise-card { background: var(--grey); border-radius: 15px; padding: 20px; margin-bottom: 20px; border-right: 6px solid var(--red); }
+        .ex-img { width: 100%; border-radius: 10px; margin: 10px 0; background: #333; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 0.8em; color: #666; }
+        .stats { display: flex; justify-content: space-between; margin: 15px 0; font-weight: bold; }
+        
+        .btn { background: var(--red); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; font-size: 1.1em; }
+        .btn-outline { background: transparent; border: 1px solid var(--red); color: var(--red); margin-top: 10px; }
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .boda-header {
-            font-size: 3em;
-            font-weight: bold;
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            margin-bottom: 5px;
-        }
-
-        .slogan {
-            color: #aaa;
-            font-style: italic;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        input {
-            width: 80%;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
-            background: #333;
-            color: white;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            background: #cc0000;
-        }
-
-        /* شريط التقدم */
-        .progress-box {
-            margin: 20px 0;
-        }
-
-        .progress-bar-bg {
-            background: #333;
-            height: 25px;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid var(--primary);
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #ff0000, #990000);
-            width: 0%;
-            height: 100%;
-            transition: 0.5s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8em;
-            font-weight: bold;
-        }
-
-        /* قائمة التمارين */
-        .exercise-item {
-            background: #222;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-right: 5px solid var(--primary);
-        }
-
-        /* العداد الرهيب */
-        #timer-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .timer-number {
-            font-size: 8em;
-            color: var(--primary);
-            font-weight: bold;
-            margin: 20px;
-        }
-
+        /* الشاشات */
         .hidden { display: none; }
+        #timer-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 100; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        .big-timer { font-size: 7em; color: var(--red); font-weight: bold; }
+        
+        .faq-box { font-size: 0.9em; background: #222; padding: 10px; border-radius: 10px; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="boda-header">BOda</div>
-        <p class="slogan">التمرين ده مش متعب.. ده بيصنع وحوش! 💪🔥</p>
-
-        <div id="login-card" class="card">
-            <h2>سجل اسمك يا وحش</h2>
-            <input type="text" id="userName" placeholder="اسمك هنا...">
-            <br>
-            <button class="btn" onclick="startApp()">دخول التحدي 🚀</button>
-        </div>
-
-        <div id="main-app" class="hidden">
-            <div class="card progress-box">
-                <h3>عاش يا <span id="display-name" style="color:var(--primary)"></span>! تقدمك اليوم:</h3>
-                <div class="progress-bar-bg">
-                    <div id="progress-fill" class="progress-fill">0%</div>
-                </div>
-            </div>
-
-            <div id="exercise-list">
-                </div>
-        </div>
+<div class="container">
+    <div class="header">
+        <div class="boda-logo">BOda</div>
+        <p>تحدي الـ 23 يوم | اليوم <span id="current-day-num">1</span></p>
     </div>
 
-    <div id="timer-screen">
-        <h1 id="active-ex-name" style="color: white;">اسم التمرين</h1>
-        <div class="timer-number" id="countdown">30</div>
-        <button class="btn" onclick="finishExercise()">تم بنجاح ✅</button>
+    <div class="days-progress">
+        <span>التقدم الإجمالي للرحلة</span>
+        <div class="bar-bg"><div class="bar-fill" id="total-progress"></div></div>
     </div>
 
-    <script>
-        const exercises = [
-            { name: "تمرين ضهر (W) 🧗‍♂️", time: 45 },
-            { name: "تمرين البلانك 🧘‍♂️", time: 30 },
-            { name: "تمرين السكوات 🦵", time: 45 },
-            { name: "رفع الرجلين (بطن) ⛓️", time: 40 }
-        ];
+    <div id="exercise-list">
+        <div class="exercise-card">
+            <h3>تمرين ضهر (W) 🧗‍♂️</h3>
+            <div class="ex-img">[صورة متحركة للظهر W]</div>
+            <p>الوصف: افرد دراعك وضم لوح الكتف لورا كأنك بترسم حرف W.</p>
+            <div class="stats"><span>المجموعات: 3</span> <span>التكرار: 15</span></div>
+            <button class="btn" onclick="startExercise('W', 3, 15)">ابدأ المجموعات ▶</button>
+            <button class="btn btn-outline" onclick="toggleFAQ('faq1')">لو حسيت بوجع؟</button>
+            <div id="faq1" class="faq-box">لو حسيت بوجع في الرقبة، يبقى شادد رقبتك زيادة. ركز إن الحركة تكون من كتافك بس.</div>
+        </div>
 
-        let completedCount = 0;
+        <div class="exercise-card">
+            <h3>تمرين البلانك 🧘‍♂️</h3>
+            <div class="ex-img">[صورة متحركة للبلانك]</div>
+            <p>الوصف: ثبت جسمك كله على كوعك ومشط رجلك، جسمك مسطرة.</p>
+            <div class="stats"><span>المجموعات: 3</span> <span>المدة: 30 ثانية</span></div>
+            <button class="btn" onclick="startTimer(30)">ابدأ العداد ⏱️</button>
+            <button class="btn btn-outline" onclick="toggleFAQ('faq2')">مش قادر أكمل؟</button>
+            <div id="faq2" class="faq-box">ممكن تسند بركبك على الأرض شوية لو البلانك الكامل صعب عليك في الأول.</div>
+        </div>
+    </div>
+</div>
 
-        function startApp() {
-            const name = document.getElementById('userName').value;
-            if(!name) return alert("اكتب اسمك الأول!");
-            
-            document.getElementById('display-name').innerText = name;
-            document.getElementById('login-card').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
-            
-            renderExercises();
-        }
+<div id="timer-screen">
+    <h2 id="timer-title">ثبات يا وحش!</h2>
+    <div class="big-timer" id="countdown-val">30</div>
+    <button class="btn" style="width: 200px" onclick="stopTimer()">إلغاء</button>
+</div>
 
-        function renderExercises() {
-            const list = document.getElementById('exercise-list');
-            list.innerHTML = exercises.map((ex, i) => `
-                <div class="exercise-item">
-                    <span>${ex.name}</span>
-                    <button class="btn" style="padding: 8px 15px; font-size: 0.9em;" onclick="openTimer(${i})">ابدأ التمرين ▶</button>
-                </div>
-            `).join('');
-        }
+<script>
+    let day = 1;
+    
+    function toggleFAQ(id) {
+        let el = document.getElementById(id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
 
-        let interval;
-        function openTimer(index) {
-            const ex = exercises[index];
-            document.getElementById('active-ex-name').innerText = ex.name;
-            document.getElementById('timer-screen').style.display = 'flex';
-            
-            let timeLeft = ex.time;
-            const display = document.getElementById('countdown');
-            display.innerText = timeLeft;
-
-            interval = setInterval(() => {
-                timeLeft--;
-                display.innerText = timeLeft;
-                if(timeLeft <= 0) {
-                    clearInterval(interval);
-                    alert("الوقت خلص! اضغط تم بنجاح.");
+    function startExercise(name, sets, reps) {
+        let currentSet = 1;
+        function nextSet() {
+            if(currentSet <= sets) {
+                if(confirm(`المجموعة ${currentSet} من ${sets}. خلصت؟`)) {
+                    currentSet++;
+                    if(currentSet > sets) {
+                        alert("مبروك! خلصت مجموعات التمرين ده بنجاح 👏");
+                        updateOverallProgress();
+                    } else {
+                        nextSet();
+                    }
                 }
-            }, 1000);
-        }
-
-        function finishExercise() {
-            clearInterval(interval);
-            document.getElementById('timer-screen').style.display = 'none';
-            completedCount++;
-            
-            const percent = Math.round((completedCount / exercises.length) * 100);
-            const fill = document.getElementById('progress-fill');
-            fill.style.width = percent + "%";
-            fill.innerText = percent + "%";
-            
-            if(completedCount === exercises.length) {
-                alert("مبروك يا بطل! خلصت تمارين النهاردة. بكرة جسمك هيكون أقوى!");
             }
         }
-    </script>
+        nextSet();
+    }
+
+    let timerInterval;
+    function startTimer(seconds) {
+        const screen = document.getElementById('timer-screen');
+        const display = document.getElementById('countdown-val');
+        screen.style.display = 'flex';
+        let timeLeft = seconds;
+        display.innerText = timeLeft;
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            display.innerText = timeLeft;
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                screen.style.display = 'none';
+                alert("مبروك يا وحش! بلانك حديد 🔥");
+                updateOverallProgress();
+            }
+        }, 1000);
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+        document.getElementById('timer-screen').style.display = 'none';
+    }
+
+    let completedTasks = 0;
+    function updateOverallProgress() {
+        completedTasks++;
+        // تحديث بسيط للبار (مجرد شكل توضيحي)
+        let fill = document.getElementById('total-progress');
+        let currentWidth = parseInt(fill.style.width) || 5;
+        fill.style.width = (currentWidth + 2) + "%";
+    }
+</script>
+
 </body>
 </html>
