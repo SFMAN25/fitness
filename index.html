@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOda Fitness | Pro Coach</title>
+    <title>BOda Fitness | الوحش التفاعلي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -32,22 +32,23 @@
             border-bottom: 3px solid var(--main-red);
         }
 
-        header h1 { font-size: 3.5rem; font-weight: 900; text-shadow: 0 0 20px var(--main-red); }
+        header h1 { font-size: 3rem; font-weight: 900; text-transform: uppercase; }
         header span { color: var(--main-red); }
 
         .progress-section {
-            max-width: 900px;
+            max-width: 800px;
             margin: -30px auto 40px;
             background: var(--card-bg);
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             border: 1px solid #222;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .progress-bar-bg {
             background: #222;
-            height: 15px;
-            border-radius: 20px;
+            height: 12px;
+            border-radius: 10px;
             margin: 15px 0;
             overflow: hidden;
         }
@@ -56,38 +57,40 @@
             background: var(--main-red);
             width: 0%;
             height: 100%;
-            transition: 1s ease-in-out;
-            box-shadow: 0 0 20px var(--main-red);
+            transition: 0.8s ease-in-out;
+            box-shadow: 0 0 15px var(--main-red);
         }
 
         .workout-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
         .exercise-card {
             background: var(--card-bg);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-radius: 12px;
-            border-right: 6px solid var(--main-red);
-            overflow: hidden;
+            border-right: 5px solid var(--main-red);
             transition: 0.3s;
         }
 
         .exercise-header {
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
         }
 
+        .exercise-title h3 { font-size: 1.1rem; color: var(--white); }
+        .exercise-title p { color: var(--main-red); font-size: 0.85rem; font-weight: bold; }
+
         .btn-check {
             background: transparent;
             border: 2px solid var(--main-red);
             color: var(--white);
-            padding: 8px 20px;
+            padding: 6px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
@@ -97,31 +100,29 @@
         .exercise-details {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
-            background: #181818;
+            transition: max-height 0.4s ease-out;
+            background: #0a0a0a;
         }
 
-        .exercise-details.show { max-height: 500px; padding: 20px; border-top: 1px solid #222; }
+        .exercise-details.show { max-height: 500px; padding: 15px 20px; border-top: 1px solid #222; }
 
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .info-box h4 { color: var(--gold); margin-bottom: 10px; }
-        .info-box p { font-size: 0.85rem; color: #ccc; line-height: 1.6; }
+        .info-box { margin-bottom: 15px; }
+        .info-box h4 { color: var(--gold); font-size: 0.9rem; margin-bottom: 5px; }
+        .info-box p { font-size: 0.8rem; color: #bbb; line-height: 1.5; }
 
-        .completed-card { border-right-color: #444 !important; opacity: 0.6; }
-
-        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+        .completed-card { border-right-color: #444 !important; opacity: 0.5; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>BOda <span>Fitness</span></h1>
-        <p>الجدول التفاعلي الذكي - تمرين البطن الجديد متاح الآن</p>
+        <p>لا تتوقف حتى تفخر بنفسك</p>
     </header>
 
     <div class="progress-section">
-        <div style="display: flex; justify-content: space-between;">
-            <span>إنجاز اليوم</span>
+        <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+            <span>مستوى الإنجاز اليومي</span>
             <span id="percent-text" style="color: var(--main-red); font-weight: 900;">0%</span>
         </div>
         <div class="progress-bar-bg">
@@ -131,74 +132,114 @@
 
     <div class="workout-container">
         
-        <div class="exercise-card" id="ex_abs">
-            <div class="exercise-header" onclick="toggleDetails('details_abs')">
-                <div class="exercise-title">
-                    <h3>رفع الرجلين زاوية 90 (بطن) 📉</h3>
-                    <p>3 مجموعات × 12 تكرار</p>
-                </div>
-                <div class="actions">
-                    <button class="btn-check" onclick="markDone(event, 'ex_abs')">تم</button>
-                </div>
-            </div>
-            <div id="details_abs" class="exercise-details">
-                <div class="info-grid">
-                    <div class="info-box">
-                        <h4><i class="fas fa-star"></i> فوائد التمرين</h4>
-                        <p>يستهدف عضلات البطن السفلية بتركيز عالٍ ويساعد في تقوية "الكور" وشد منطقة الوسط.</p>
-                    </div>
-                    <div class="info-box">
-                        <h4><i class="fas fa-exclamation-triangle"></i> بتحس بتعب؟</h4>
-                        <p>لو حسيت بوجع في ظهرك، لا تلمس الأرض برجلك وحاول تخلي أسفل ظهرك ملتصق تماماً بالأرض طول التمرين.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="exercise-card" id="ex1">
-            <div class="exercise-header" onclick="toggleDetails('details1')">
+            <div class="exercise-header" onclick="toggleDetails('d1')">
                 <div class="exercise-title">
                     <h3>تمرين ظهر (W) 🏋️‍♂️</h3>
                     <p>3 مجموعات × 15 تكرار</p>
                 </div>
-                <div class="actions">
-                    <button class="btn-check" onclick="markDone(event, 'ex1')">تم</button>
-                </div>
+                <button class="btn-check" onclick="markDone(event, 'ex1')">تم</button>
             </div>
-            <div id="details1" class="exercise-details">
-                <div class="info-grid">
-                    <div class="info-box">
-                        <h4><i class="fas fa-star"></i> فوائد التمرين</h4>
-                        <p>تحسين وضعية الكتفين وتقوية عضلات الظهر العلوية.</p>
-                    </div>
-                    <div class="info-box">
-                        <h4><i class="fas fa-exclamation-triangle"></i> بتحس بتعب؟</h4>
-                        <p>ركز على سحب الوزن بعضلات ظهرك وليس ذراعك أو رقبتك.</p>
-                    </div>
+            <div id="d1" class="exercise-details">
+                <div class="info-box">
+                    <h4><i class="fas fa-bullseye"></i> الملاحظات</h4>
+                    <p>شد لوحي الكتف للخلف بقوة واثبت ثانية.</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-question-circle"></i> بتحس بتعب؟</h4>
+                    <p>لو حسيت بوجع في رقبتك، قلل الوزن وركز إن الحركة تطلع من عضلات ضهرك مش دراعك.</p>
                 </div>
             </div>
         </div>
 
         <div class="exercise-card" id="ex2">
-            <div class="exercise-header" onclick="toggleDetails('details2')">
+            <div class="exercise-header" onclick="toggleDetails('d2')">
                 <div class="exercise-title">
                     <h3>تمرين البلانك 🧘‍♂️</h3>
                     <p>30 ثانية × 3 مجموعات</p>
                 </div>
-                <div class="actions">
-                    <button class="btn-check" onclick="markDone(event, 'ex2')">تم</button>
+                <button class="btn-check" onclick="markDone(event, 'ex2')">تم</button>
+            </div>
+            <div id="d2" class="exercise-details">
+                <div class="info-box">
+                    <h4><i class="fas fa-bullseye"></i> الملاحظات</h4>
+                    <p>حافظ على استقامة الظهر (جسمك مسطرة).</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-question-circle"></i> بتحس بتعب؟</h4>
+                    <p>لو ضهرك وجعك، ارفع وسطك سنة لفوق وشد عضلات بطنك أقوى.</p>
                 </div>
             </div>
-            <div id="details2" class="exercise-details">
-                <div class="info-grid">
-                    <div class="info-box">
-                        <h4><i class="fas fa-star"></i> فوائد التمرين</h4>
-                        <p>تقوية شاملة لكل عضلات الجسم الأمامية والخلفية وزيادة الثبات.</p>
-                    </div>
-                    <div class="info-box">
-                        <h4><i class="fas fa-exclamation-triangle"></i> بتحس بتعب؟</h4>
-                        <p>حافظ على استقامة جسمك ولا تجعل حوضك يسقط للأسفل.</p>
-                    </div>
+        </div>
+
+        <div class="exercise-card" id="ex3">
+            <div class="exercise-header" onclick="toggleDetails('d3')">
+                <div class="exercise-title">
+                    <h3>تمرين السكوات 🦵</h3>
+                    <p>15 تكرار × 3 مجموعات</p>
+                </div>
+                <button class="btn-check" onclick="markDone(event, 'ex3')">تم</button>
+            </div>
+            <div id="d3" class="exercise-details">
+                <div class="info-box">
+                    <h4><i class="fas fa-bullseye"></i> الملاحظات</h4>
+                    <p>انزل بظهر مفرود ووزنك على كعب القدم.</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-question-circle"></i> بتحس بتعب؟</h4>
+                    <p>لو ركبتك بتوجعك، اتأكد إنها مش بتعدي صوابع رجلك وأنت نازل.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card" id="ex4">
+            <div class="exercise-header" onclick="toggleDetails('d4')">
+                <div class="exercise-title">
+                    <h3>رفع الرجلين (بطن) 📉</h3>
+                    <p>12 تكرار × 3 مجموعات</p>
+                </div>
+                <button class="btn-check" onclick="markDone(event, 'ex4')">تم</button>
+            </div>
+            <div id="d4" class="exercise-details">
+                <div class="info-box">
+                    <h4><i class="fas fa-bullseye"></i> الملاحظات</h4>
+                    <p>انزل برجلك ببطء شديد ولا تلمس الأرض.</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-question-circle"></i> بتحس بتعب؟</h4>
+                    <p>حاول تخلي ضهرك من تحت لامس الأرض تماماً وأنت بتنزل برجلك.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card" id="ex5">
+            <div class="exercise-header" onclick="toggleDetails('d5')">
+                <div class="exercise-title">
+                    <h3>النوم البدري 😴</h3>
+                    <p>7 - 8 ساعات</p>
+                </div>
+                <button class="btn-check" onclick="markDone(event, 'ex5')">تم</button>
+            </div>
+            <div id="d5" class="exercise-details">
+                <div class="info-box">
+                    <h4><i class="fas fa-bullseye"></i> الفائدة</h4>
+                    <p>أساسي جداً لحرق الدهون واستشفاء العضلات.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card" id="ex6">
+            <div class="exercise-header" onclick="toggleDetails('d6')">
+                <div class="exercise-title">
+                    <h3>شرب المياه 💧</h3>
+                    <p>3 لتر يومياً</p>
+                </div>
+                <button class="btn-check" onclick="markDone(event, 'ex6')">تم</button>
+            </div>
+            <div id="d6" class="exercise-details">
+                <div class="info-box">
+                    <h4><i class="fas fa-bullseye"></i> الفائدة</h4>
+                    <p>اشرب كوباً قبل كل وجبة لزيادة الحرق.</p>
                 </div>
             </div>
         </div>
@@ -207,17 +248,15 @@
 
     <script>
         function toggleDetails(id) { document.getElementById(id).classList.toggle('show'); }
-
         function markDone(event, cardId) {
             event.stopPropagation();
             const card = document.getElementById(cardId);
             const btn = card.querySelector('.btn-check');
             card.classList.toggle('completed-card');
             btn.classList.toggle('done');
-            btn.innerHTML = btn.classList.contains('done') ? '<i class="fas fa-check"></i> تم' : 'تم';
+            btn.innerHTML = btn.classList.contains('done') ? '<i class="fas fa-check"></i>' : 'تم';
             updateProgress();
         }
-
         function updateProgress() {
             const total = document.querySelectorAll('.btn-check').length;
             const done = document.querySelectorAll('.btn-check.done').length;
